@@ -1,0 +1,25 @@
+body{
+    background-color: #142458;
+}
+
+/* Table */
+
+.corona-table{
+    padding-top: 2%;
+}
+
+.table-dark{
+    --bs-table-striped-color: #edf2f4;
+    --bs-table-striped-bg: #246a73;
+    --bs-table-bg: #368f8b;
+    border-color: #424647;
+}
+
+.container-fluid { 
+	padding: 3% 15% 3%;
+}
+
+/* dropdown */
+
+
+
