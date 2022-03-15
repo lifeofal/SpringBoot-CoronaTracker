@@ -40,16 +40,17 @@ public class CoronaActiveTrackerService {
         for (CSVRecord record : records) {
 
             LocationStats locationStat = new LocationStats();
+            if(!(record.get("Admin2").equals("Unassigned"))) {
 
-            locationStat.setCountry(record.get("Country_Region"));
-            locationStat.setState(record.get("Province_State"));
-            locationStat.setCounty(record.get("Admin2"));
+                locationStat.setCountry(record.get("Country_Region"));
+                locationStat.setState(record.get("Province_State"));
+                locationStat.setCounty(record.get("Admin2"));
+                locationStat.setLatestConfirmedCases(Integer.parseInt(record.get(record.size() - 1))); //gets the latest addition to the CSV file
 
-
-            locationStat.setLatestConfirmedCases(Integer.parseInt(record.get(record.size()-1))); //gets the latest addition to the CSV file
 
 //            System.out.println(locationStat);
-            currentStats.add(locationStat);
+                currentStats.add(locationStat);
+            }
 
 
         }
@@ -57,15 +58,11 @@ public class CoronaActiveTrackerService {
 
 
     }
-
-    public List<LocationStats> getAllStats() {
-        return allStats;
-    }
-
-
+    @PostConstruct
     public List<String> getUsaStates(){
         HashSet<String> stateList = new HashSet<>();
         List<LocationStats> allStats = getAllStats();
+
 
         for (LocationStats obj:
                 allStats) {
@@ -73,6 +70,25 @@ public class CoronaActiveTrackerService {
         }
         List<String> returnList = new ArrayList<>(stateList);
         Collections.sort(returnList);
+        returnList.add(0, "USA");
         return returnList;
+    }
+
+    public List<LocationStats> getAllStats() {
+        return allStats;
+    }
+
+
+
+    public List<LocationStats> getStateSelected(String state){
+        List<LocationStats> allStats = getAllStats();
+        List<LocationStats> selectedState = new ArrayList<>();
+        for(LocationStats obj: allStats){
+            if(obj.getState().equals(state) ){
+               selectedState.add(obj);
+            }
+        }
+        return selectedState;
+
     }
 }

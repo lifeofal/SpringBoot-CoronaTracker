@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -19,12 +20,30 @@ public class HomeController {
     CoronaActiveTrackerService coronaActiveTrackerService;
 
     @GetMapping("/")
-    public String home(Model model){ //create a model to then construct it into the HTML
-        model.addAttribute("locationStats", coronaActiveTrackerService.getAllStats());
+    public String home(Model model, String stateSelected){ //create a model to then construct it into the HTML
         model.addAttribute("states", coronaActiveTrackerService.getUsaStates());
+        if(stateSelected != null && !stateSelected.equals("USA")) {
+            model.addAttribute("locationStats", coronaActiveTrackerService.getStateSelected(stateSelected));
+        }
+        else {
+            model.addAttribute("locationStats", coronaActiveTrackerService.getAllStats());
+        }
+
         return "home";
 
     }
+
+//    @GetMapping("/state={stateSelected}")
+//    public String stateSelect(Model model, @PathVariable("stateSelected") String stateSelected){
+//        if(!stateSelected.equals("USA")) {
+//            model.addAttribute("selectedState", coronaActiveTrackerService.getStateSelected(stateSelected));
+//        }
+//        else {
+//
+//        }
+//
+//        return "stateSelect";
+//    }
 
 //    @ModelAttribute("states")
 
