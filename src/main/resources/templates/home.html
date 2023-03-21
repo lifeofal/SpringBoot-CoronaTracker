@@ -59,7 +59,7 @@
 				<!-- Nav Bar -->
 
 				<nav class="navbar navbar-expand-lg navbar-dark">
-					<a class="navbar-brand" href="https://lifeofal.github.io/hellofriend">
+					<a class="navbar-brand" href="https://lifeofal.herokuapp.com/">
 						<img
 							src="/images/favicon.png"
 							alt=""
@@ -154,6 +154,15 @@
 
 		<!-- JS -->
 
+		<script>
+            // Change the text of the button to the selected option
+            document.querySelectorAll('.dropdown-item').forEach(item => {
+              item.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.getElementById('dropdownMenuButton2').textContent = this.textContent;
+              });
+            });
+        </script>
 		<script
 			src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
 			integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
